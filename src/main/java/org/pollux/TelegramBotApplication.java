@@ -8,11 +8,13 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
+import java.io.IOException;
+
 @SpringBootApplication
 public class TelegramBotApplication {
 
 
-    public static void main(String[] args) throws TelegramApiException {
+    public static void main(String[] args) throws TelegramApiException, IOException {
         Dotenv dotenv = Dotenv.load();
         String botToken = dotenv.get("API_KEY");
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
