@@ -31,6 +31,6 @@ build/
 
 ### Environment ###
 .env
-/todo_result/
+data
 ### VS Code ###
 .vscode/

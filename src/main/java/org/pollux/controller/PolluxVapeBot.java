@@ -11,7 +11,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -21,31 +20,31 @@ public class PolluxVapeBot extends TelegramLongPollingBot {
         super(botToken);
     }
 
-
-    private final Path logFilePath = Paths.get("todo_result/log.txt");//path to log file
-    private final Path abolutePath = logFilePath.toAbsolutePath(); //absolute path to log file
-    private final FileWriter logFileWriter = new FileWriter(abolutePath.toString(), true);
-
-
-    public void sendMessage(long id, String text) throws TelegramApiException {
+    private void sendMessage(long id, String text) throws TelegramApiException {
         SendMessage message = new SendMessage();
         message.setChatId(id);
         message.setText(text);
         execute(message);
     }
+    private void logMessage(String username, String message) throws TelegramApiException {
+        String filename = "data/logs/" + username + "_logs.txt";
+        try (FileWriter writer = new FileWriter(filename, true)){
+            writer.append(message).append('\n').flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public void onUpdateReceived(Update update) {
-        String text = update.getMessage().getText();
+        String message = update.getMessage().getText();
         String username = update.getMessage().getFrom().getUserName();
         Date date = new Date();
-        String formatted_text = "Received text: \"" + text + "\" username: @" + username + " date: " + date;
+        String formatted_text = "Received message: \"" + message + "\" username: @" + username + " date: " + date;
         try {
-            System.out.println(formatted_text);
-            System.out.println(date);
-            sendMessage(update.getMessage().getChatId(), text);
-            logFileWriter.append(formatted_text).append('\n').flush();
-        } catch (TelegramApiException | IOException e) {
+            sendMessage(update.getMessage().getChatId(), message);
+            logMessage(username, formatted_text);
+        } catch (TelegramApiException e) {
             throw new RuntimeException(e);
         }
     }
