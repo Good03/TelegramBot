@@ -16,7 +16,7 @@ public class TelegramBotApplication {
 
     public static void main(String[] args) throws TelegramApiException, IOException {
         Dotenv dotenv = Dotenv.load();
-        String botToken = dotenv.get("API_KEY");
+        String botToken = dotenv.get("BOT_TOKEN");
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
         MessageController polluxBot = new MessageController(botToken);
         telegramBotsApi.registerBot(polluxBot);

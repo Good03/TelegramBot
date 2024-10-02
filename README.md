@@ -1,7 +1,5 @@
-# ``` Telegram bot for your store```
-
+# ```Telegram bot for your store```
 ## ```There will be description```
-
 ## ```Installation ```
 
 ```bash

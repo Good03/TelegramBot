@@ -3,6 +3,10 @@ package org.pollux.controller;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.Logger;
+import org.pollux.service.UserService;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -13,9 +17,9 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.io.IOException;
 
 import java.util.Objects;
-
 @Slf4j
 public class MessageController extends TelegramLongPollingBot {
+    UserService userService; //TODO fix this.userService is null
 
     public MessageController(String botToken) throws IOException {
         super(botToken);
@@ -36,6 +40,7 @@ public class MessageController extends TelegramLongPollingBot {
                 try {
                     sendMessage(update.getMessage().getChatId(), "Hello " + update.getMessage().getFrom().getFirstName() + "!");
                     log.info("Command received: {}", message);
+                    userService.addUserToDatabase(update.getMessage().getFrom());
                 } catch (TelegramApiException e) {
                     log.error(e.getMessage());
                 }
