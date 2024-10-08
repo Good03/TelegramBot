@@ -1,0 +1,12 @@
+spring.application.name='name'
+
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.url=jdbc:postgresql://host:'port'/'dbname'
+spring.datasource.username='username'
+spring.datasource.password='password'
+
+
+spring.jpa.generate-ddl=true
+spring.jpa.hibernate.ddl-auto=update
+
+BOT_TOKEN='token'

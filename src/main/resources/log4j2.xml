@@ -5,43 +5,19 @@
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
-        <RollingFile name="MAIN" fileName="data/logs/main.log"
-                     filePattern="data/logs/main-%d{yyyy-MM-dd}-%i.log">
+        <RollingFile name="File" fileName="data/logs/app.log"
+                     filePattern="data/logs/app-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
             <Policies>
-                <SizeBasedTriggeringPolicy size="1000" />
-            </Policies>
-        </RollingFile>
-
-        <RollingFile name="DEBUG_LOG" fileName="data/logs/debug.log"
-                     filePattern="data/logs/debug-%d{yyyy-MM-dd}-%i.log">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-            <Policies>
-                <SizeBasedTriggeringPolicy size="1000" />
-            </Policies>
-        </RollingFile>
-
-        <RollingFile name="FATAL_LOG" fileName="data/logs/fatal.log"
-                     filePattern="data/logs/fatal-%d{yyyy-MM-dd}-%i.log">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-            <Policies>
-                <SizeBasedTriggeringPolicy size="1000" />
+                <SizeBasedTriggeringPolicy size="10MB"/>
             </Policies>
         </RollingFile>
     </Appenders>
 
     <Loggers>
         <Root level="INFO">
-            <AppenderRef ref="Console" level="WARN"/>
-            <AppenderRef ref="MAIN"/>
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
         </Root>
-
-        <Logger name="org.pollux.foo" level="DEBUG">
-            <AppenderRef ref="DEBUG_LOG"/>
-        </Logger>
-
-        <Logger name="org.pollux" level="FATAL">
-            <AppenderRef ref="FATAL_LOG"/>
-        </Logger>
     </Loggers>
 </Configuration>
